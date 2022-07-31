@@ -64,11 +64,11 @@
 #### Create snapshot that will contain next data: student name, student surname, subject name, mark (snapshot means that in case of changing some data in source table – your snapshot should not change)
 [snapshot script](snapshot.sql)  
   
-####Create function that will return average mark for input user. 
+#### Create function that will return average mark for input user. 
 [avarage mark for student script](avrgMarkStud.sql)  
   
-####Create function that will return avarage mark for input subject name. 
+#### Create function that will return avarage mark for input subject name. 
 [avarage mark for subject name script](avrgMarkSbj.sql)   
   
-####Create function that will return student at "red zone" (red zone means at least 2 marks <=3)  
+#### Create function that will return student at "red zone" (red zone means at least 2 marks <=3)  
 [red zone script](red_zone.sql)
