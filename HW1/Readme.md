@@ -7,7 +7,7 @@
   
 #### Find user by name (exact match)  
   
-|Index type|Size|Cost|Time|
+|Index type|Size, kB|Cost (first record...all records)|Time (first record...all records), sec|
 |----|---|---|---|
 |Without index|2208|0.00..2464.00|0.899..395.313|
 |btree index|5312 |12.04..1235.06|1.934..33.846|
@@ -17,7 +17,7 @@
   
 #### Find user by surname (partial match)
 
-|Index type|Size|Cost|Time|
+|Index type|Size, kB|Cost (first record...all records)|Time (first record...all records), sec|
 |----|---|---|---|
 |Without index|2208|0.00..2464.00|2.271..545.678|
 |btree index|2912 |0.29-4.31|0.048..15.765|
@@ -27,7 +27,7 @@
 
 #### Find user by phone number (partial match)
 
-|Index type|Size|Cost|Time|
+|Index type|Size, kB|Cost (first record...all records)|Time (first record...all records), sec|
 |----|---|---|---|
 |Without index|2208|0.00..2464.00|9.437..678.052|
 |btree index|3184  |0.00..2464.00|0.549..31.489|
@@ -37,7 +37,7 @@
 
 #### Find user with marks by user surname (partial match)
 
-|Index type|Size|Cost|Time|
+|Index type|Size, kB|Cost (first record...all records)|Time (first record...all records), sec|
 |----|---|---|---|
 |Without index|2208|2956.77..14640.20|399.198..1597.826|
 |btree index|2944   |2956.77..14640.20|355.239..1539.948|
