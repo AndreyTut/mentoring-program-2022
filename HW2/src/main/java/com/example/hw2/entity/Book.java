@@ -19,6 +19,9 @@ public class Book {
 
     private String name;
 
+    @Column(name="isbestseller")
+    private boolean isBestseller;
+
     @ManyToOne
     @JoinColumn(name = "author_id")
     @JsonIgnore
@@ -50,6 +53,14 @@ public class Book {
 
     public void setAuthor(Author author) {
         this.author = author;
+    }
+
+    public boolean isBestseller() {
+        return isBestseller;
+    }
+
+    public void setBestseller(boolean bestseller) {
+        isBestseller = bestseller;
     }
 
     //    @Override
