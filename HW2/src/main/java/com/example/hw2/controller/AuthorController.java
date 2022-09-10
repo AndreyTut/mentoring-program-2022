@@ -2,8 +2,7 @@ package com.example.hw2.controller;
 
 import com.example.hw2.entity.Author;
 import com.example.hw2.servise.AuthorService;
-import org.springframework.security.core.annotation.AuthenticationPrincipal;
-import org.springframework.security.oauth2.core.user.OAuth2User;
+import org.springframework.context.annotation.Profile;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.Map;
@@ -11,6 +10,7 @@ import java.util.Set;
 
 @RestController
 @RequestMapping("/authors")
+@Profile({"prod", "default"})
 public class AuthorController {
     private final AuthorService authorService;
 
@@ -19,13 +19,7 @@ public class AuthorController {
     }
 
     @GetMapping
-    public Set<Author> getAll(@AuthenticationPrincipal OAuth2User principal, @RequestHeader Map<String, String> headers) {
-        System.out.println("user~~~~~~~~~~~~~~~~~~~" + principal.getName());
-        System.out.println("user~~~~~~~~~~~~~~~~~~~" + principal.getAttribute("name"));
-        Map<String, Object> attributes = principal.getAttributes();
-        attributes.forEach((key, value) -> System.out.println(key + "->" + value));
-        System.out.println("&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&");
-        headers.forEach((key, value) -> System.out.println(key + "->" + value));
+    public Set<Author> getAll(@RequestHeader Map<String, String> headers) {
         return authorService.getAll();
     }
 

@@ -2,11 +2,13 @@ package com.example.hw2.servise;
 
 import com.example.hw2.entity.Author;
 import com.example.hw2.repository.AuthorRepository;
+import org.springframework.context.annotation.Profile;
 import org.springframework.stereotype.Service;
 
 import java.util.Set;
 
 @Service
+@Profile({"prod", "default"})
 public class AuthorService {
 
     private final AuthorRepository authorRepository;
