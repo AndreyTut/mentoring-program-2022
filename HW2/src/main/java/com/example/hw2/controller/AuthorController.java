@@ -19,7 +19,7 @@ public class AuthorController {
     }
 
     @GetMapping
-    public Set<Author> getAll(@RequestHeader Map<String, String> headers) {
+    public Set<Author> getAll() {
         return authorService.getAll();
     }
 

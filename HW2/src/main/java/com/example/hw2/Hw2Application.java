@@ -15,6 +15,7 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 import java.util.Arrays;
 import java.util.List;
+import java.util.Optional;
 import java.util.Set;
 
 @Slf4j
@@ -23,7 +24,7 @@ public class Hw2Application implements CommandLineRunner {
 
     @Value("${message}")
     private String greeting;
-    @Autowired
+    @Autowired(required = false)
     private Greeter greeter;
 
     public static void main(String[] args) {
@@ -34,6 +35,6 @@ public class Hw2Application implements CommandLineRunner {
     public void run(String... args) throws Exception {
         System.out.println("hello world");
         System.out.println(greeting);
-        System.out.println(greeter.getGreeting());
+        System.out.println(Optional.ofNullable(greeter).orElse(() -> "hello..").getGreeting());
     }
 }
