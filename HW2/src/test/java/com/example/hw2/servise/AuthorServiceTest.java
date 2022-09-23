@@ -3,10 +3,13 @@ package com.example.hw2.servise;
 import com.example.hw2.entity.Author;
 import com.example.hw2.repository.AuthorRepository;
 import org.assertj.core.api.Assertions;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.*;
 import org.mockito.junit.jupiter.MockitoExtension;
+import org.springframework.data.domain.PageRequest;
 
 import java.util.ArrayList;
 import java.util.Optional;
@@ -20,13 +23,16 @@ class AuthorServiceTest {
 
     @Mock
     private AuthorRepository repository;
-    @InjectMocks
     private AuthorService service;
     @Captor
     private ArgumentCaptor<Author> captor;
     @Captor
     private ArgumentCaptor<Long> longArgumentCaptor;
 
+    @BeforeEach
+    void setUp() {
+        service = new AuthorService(repository);
+    }
 
     @Test
     void create() {
@@ -75,8 +81,8 @@ class AuthorServiceTest {
 
     @Test
     void getAll() {
-        service.getAll();
-        verify(repository).findAllWithBooks();
+        service.getAll(1);
+        verify(repository).findAllWithBooks(PageRequest.of(1, 10));
     }
 
     private Author getNewAuthor() {

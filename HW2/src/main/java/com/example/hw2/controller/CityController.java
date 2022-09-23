@@ -8,6 +8,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.util.List;
+import java.util.Objects;
 
 @RestController
 @RequestMapping("/city")
@@ -17,6 +18,7 @@ public class CityController {
     private final CityRepository repository;
 
     public CityController(CityRepository repository) {
+        Objects.requireNonNull(repository);
         this.repository = repository;
     }
 

@@ -8,6 +8,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.util.List;
+import java.util.Objects;
 
 @RestController
 @RequestMapping("/students")
@@ -17,6 +18,7 @@ public class StudentsController {
     private final StudentService service;
 
     public StudentsController(StudentService service) {
+        Objects.requireNonNull(service);
         this.service = service;
     }
 

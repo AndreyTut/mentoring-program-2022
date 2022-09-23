@@ -27,6 +27,7 @@ public class IntegrationTest {
     public void setUp() {
         mockMvc = MockMvcBuilders.webAppContextSetup(webApplicationContext).build();
     }
+
     @Test
     public void getById() throws Exception {
         mockMvc.perform(get("/authors/1"))

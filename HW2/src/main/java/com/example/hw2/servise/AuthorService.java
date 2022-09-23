@@ -3,8 +3,11 @@ package com.example.hw2.servise;
 import com.example.hw2.entity.Author;
 import com.example.hw2.repository.AuthorRepository;
 import org.springframework.context.annotation.Profile;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
 
+import java.awt.print.Pageable;
+import java.util.Objects;
 import java.util.Set;
 
 @Service
@@ -14,6 +17,7 @@ public class AuthorService {
     private final AuthorRepository authorRepository;
 
     public AuthorService(AuthorRepository authorRepository) {
+        Objects.requireNonNull(authorRepository);
         this.authorRepository = authorRepository;
     }
 
@@ -43,7 +47,8 @@ public class AuthorService {
         authorRepository.delete(author);
     }
 
-    public Set<Author> getAll() {
-        return authorRepository.findAllWithBooks();
+    public Set<Author> getAll(Integer page) {
+        PageRequest request = PageRequest.of(page, 10);
+        return authorRepository.findAllWithBooks(request);
     }
 }

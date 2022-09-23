@@ -1,12 +1,12 @@
 package com.example.hw2.entity;
 
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.NoArgsConstructor;
+import lombok.*;
 
 import javax.persistence.*;
 import java.util.List;
 
+@Getter
+@Setter
 @Entity
 @Builder
 @NoArgsConstructor
@@ -15,44 +15,15 @@ public class Author {
 
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "seq_auth")
+    @SequenceGenerator(
+            name = "seq_auth",
+            allocationSize = 1
+    )
     private Long id;
 
     private String name;
 
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "author", orphanRemoval = true)
     private List<Book> books;
-
-    public void setId(Long id) {
-        this.id = id;
-    }
-
-    public Long getId() {
-        return id;
-    }
-
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
-    }
-
-    public List<Book> getBooks() {
-        return books;
-    }
-
-    public void setBooks(List<Book> books) {
-        this.books = books;
-    }
-
-//    @Override
-//    public String toString() {
-//        return "Author{" +
-//                "id=" + id +
-//                ", name='" + name + '\'' +
-//                ", books=" + books +
-//                '}';
-//    }
 }

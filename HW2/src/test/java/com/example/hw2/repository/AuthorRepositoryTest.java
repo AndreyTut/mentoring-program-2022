@@ -8,6 +8,7 @@ import org.junit.jupiter.api.extension.ExtendWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.test.annotation.DirtiesContext;
 
 import java.util.Set;
@@ -24,7 +25,7 @@ class AuthorRepositoryTest {
 
     @Test
     void findAllWithBooks() {
-        Set<Author> allWithBooks = authorRepository.findAllWithBooks();
+        Set<Author> allWithBooks = authorRepository.findAllWithBooks(PageRequest.of(0, 10));
         Assertions.assertThat(allWithBooks.size()).isEqualTo(2);
     }
     @Test
@@ -32,7 +33,7 @@ class AuthorRepositoryTest {
     void save(){
         authorRepository.save(Author.builder()
                 .name("Test Author").build());
-        Set<Author> allWithBooks = authorRepository.findAllWithBooks();
+        Set<Author> allWithBooks = authorRepository.findAllWithBooks(PageRequest.of(0, 10));
         Assertions.assertThat(allWithBooks.size()).isEqualTo(3);
     }
 

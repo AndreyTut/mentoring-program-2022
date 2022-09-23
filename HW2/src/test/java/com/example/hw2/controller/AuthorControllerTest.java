@@ -1,6 +1,7 @@
 package com.example.hw2.controller;
 
 import com.example.hw2.servise.AuthorService;
+import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mockito;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -23,14 +24,16 @@ class AuthorControllerTest {
     private AuthorService service;
 
     @Test
+    @DisplayName("Test get all endpoint, expect ok")
     public void getAll() throws Exception {
-        mockMvc.perform(get("/authors"))
+        mockMvc.perform(get("/authors?page=0"))
                 .andExpect(status().isOk());
 
-        Mockito.verify(service).getAll();
+        Mockito.verify(service).getAll(0);
     }
 
     @Test
+    @DisplayName("test get by id endpoint, expect ok")
     public void getById() throws Exception {
         mockMvc.perform(get("/authors/1"))
                 .andExpect(status().isOk());
@@ -39,6 +42,7 @@ class AuthorControllerTest {
     }
 
     @Test
+    @DisplayName("test add author endpoint, expect ok")
     public void add() throws Exception {
         mockMvc.perform(post("/authors/")
                 .contentType(MediaType.APPLICATION_JSON)
@@ -49,6 +53,7 @@ class AuthorControllerTest {
     }
 
     @Test
+    @DisplayName("test update author endpoint, expect ok")
     public void update() throws Exception {
         mockMvc.perform(put("/authors/")
                 .contentType(MediaType.APPLICATION_JSON)
@@ -59,6 +64,7 @@ class AuthorControllerTest {
     }
 
     @Test
+    @DisplayName("test delete author by id endpoint, expect ok")
     public void deleteById() throws Exception {
         mockMvc.perform(delete("/authors/1"))
                 .andExpect(status().isOk());

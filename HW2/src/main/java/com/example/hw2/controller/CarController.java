@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.util.List;
+import java.util.Objects;
 
 @RestController
 @RequestMapping("/car")
@@ -19,6 +20,7 @@ public class CarController {
     private final CarRepository repository;
 
     public CarController(CarRepository repository) {
+        Objects.requireNonNull(repository);
         this.repository = repository;
     }
 
