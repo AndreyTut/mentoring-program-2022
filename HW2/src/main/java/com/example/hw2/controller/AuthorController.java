@@ -11,7 +11,7 @@ import java.util.Set;
 
 @RestController
 @RequestMapping("/authors")
-@Profile({"prod", "default"})
+@Profile({"prod", "default", "test"})
 public class AuthorController {
     private final AuthorService authorService;
 
