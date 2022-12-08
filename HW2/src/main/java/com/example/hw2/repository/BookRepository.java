@@ -6,6 +6,6 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
 @Repository
-@Profile({"prod", "default"})
+@Profile({"prod", "default", "test"})
 public interface BookRepository extends JpaRepository<Book, Long> {
 }

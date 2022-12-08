@@ -13,6 +13,7 @@ import org.springframework.test.annotation.DirtiesContext;
 
 import java.util.Set;
 
+import static org.assertj.core.api.Assertions.assertThat;
 import static org.junit.jupiter.api.Assertions.*;
 
 @SpringBootTest
@@ -26,20 +27,27 @@ class AuthorRepositoryTest {
     @Test
     void findAllWithBooks() {
         Set<Author> allWithBooks = authorRepository.findAllWithBooks(PageRequest.of(0, 10));
-        Assertions.assertThat(allWithBooks.size()).isEqualTo(2);
-    }
-    @Test
-    @DirtiesContext
-    void save(){
-        authorRepository.save(Author.builder()
-                .name("Test Author").build());
-        Set<Author> allWithBooks = authorRepository.findAllWithBooks(PageRequest.of(0, 10));
-        Assertions.assertThat(allWithBooks.size()).isEqualTo(3);
+        assertThat(allWithBooks.size()).isEqualTo(2);
     }
 
     @Test
-    void getById(){
+    @DirtiesContext
+    void save() {
+        authorRepository.save(Author.builder()
+                .name("Test Author").build());
+        Set<Author> allWithBooks = authorRepository.findAllWithBooks(PageRequest.of(0, 10));
+        assertThat(allWithBooks.size()).isEqualTo(3);
+    }
+
+    @Test
+    void getById() {
         Author author = authorRepository.findById(1L).get();
         Assertions.assertThat(author.getName()).isEqualTo("Stephen King");
+    }
+
+    @Test
+    void findWithBooks() {
+        Author withBooks = authorRepository.findWithBooks(1L);
+        assertThat(withBooks.getBooks().get(0).getName()).isEqualTo("it");
     }
 }

@@ -11,7 +11,7 @@ import java.util.Objects;
 import java.util.Set;
 
 @Service
-@Profile({"prod", "default"})
+@Profile({"prod", "default", "test"})
 public class AuthorService {
 
     private final AuthorRepository authorRepository;
