@@ -3,6 +3,7 @@ package com.example.hw2.controller;
 import com.example.hw2.entity.Author;
 import com.example.hw2.servise.AuthorService;
 import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureWebMvc;
@@ -25,7 +26,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 
 @SpringBootTest
 @AutoConfigureWebMvc
-public class IntegrationTest {
+public class AuthorControllerIntegrationTest {
 
     @Autowired
     private WebApplicationContext webApplicationContext;
@@ -39,6 +40,7 @@ public class IntegrationTest {
     }
 
     @Test
+    @DisplayName("getById, should return author by id")
     public void getById() throws Exception {
         mockMvc.perform(get("/authors/1"))
                 .andDo(print())
@@ -53,6 +55,7 @@ public class IntegrationTest {
     }
 
     @Test
+    @DisplayName("getAll, should return list of authors")
     public void getAll() throws Exception {
         mockMvc.perform(get("/authors"))
                 .andDo(print())
@@ -76,6 +79,7 @@ public class IntegrationTest {
 
     @Test
     @DirtiesContext
+    @DisplayName("add, should add a new author")
     public void add() throws Exception {
         mockMvc.perform(post("/authors").contentType(MediaType.APPLICATION_JSON)
                 .content("{\n" +
@@ -102,6 +106,7 @@ public class IntegrationTest {
 
     @Test
     @Transactional
+    @DisplayName("update, should update existing author")
     public void update() throws Exception {
         mockMvc.perform(put("/authors").contentType(MediaType.APPLICATION_JSON)
                 .content("{\n" +
@@ -130,6 +135,7 @@ public class IntegrationTest {
 
     @Test
     @DirtiesContext
+    @DisplayName("deleteById, should delete author by id")
     public void deleteById() throws Exception {
         mockMvc.perform(delete("/authors/1")
         ).andExpect(status().isOk());

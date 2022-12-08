@@ -3,6 +3,7 @@ package com.example.hw2.servise;
 import com.example.hw2.entity.Author;
 import com.example.hw2.entity.Book;
 import org.assertj.core.api.Assertions;
+import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -10,7 +11,6 @@ import org.springframework.context.annotation.Profile;
 import org.springframework.test.annotation.DirtiesContext;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.util.Collection;
 import java.util.Collections;
 import java.util.List;
 import java.util.Set;
@@ -19,12 +19,13 @@ import static org.assertj.core.api.Assertions.assertThat;
 
 @SpringBootTest
 @Profile("test")
-public class IntegrationTest {
+public class AuthorServiceIntegrationTest {
     @Autowired
     private AuthorService service;
 
     @Test
     @DirtiesContext
+    @DisplayName("create, should create a new author")
     public void create() {
         Author author = new Author();
         String name = "test author";
@@ -51,6 +52,7 @@ public class IntegrationTest {
     @Test
     @Transactional
     @DirtiesContext
+    @DisplayName("update, should update an existing Author")
     public void update() {
         Author author = new Author();
         author.setId(1L);
@@ -69,6 +71,7 @@ public class IntegrationTest {
     }
 
     @Test
+    @DisplayName("get, should return an existing author by ID")
     public void get() {
         Author author = service.get(1L);
         assertThat(author).isNotNull();
@@ -77,40 +80,48 @@ public class IntegrationTest {
 
     @Test
     @DirtiesContext
+    @DisplayName("delete, should delete an existing author by ID")
     public void delete() {
         service.delete(1L);
         assertThat(service.getAll(0).size()).isEqualTo(1);
     }
 
     @Test
+    @DisplayName("getAll, should return a list of authors")
     public void getAll() {
         Set<Author> authors = service.getAll(0);
         assertThat(authors.size()).isEqualTo(2);
     }
 
     @Test
+    @DisplayName("trying to create author with not null id field, should throw exception")
     public void createExistingShouldThrowException() {
         Assertions.assertThatThrownBy(() -> {
             Author author = new Author();
             author.setId(1L);
             author.setBooks(Collections.emptyList());
             service.create(author);
-        }).isInstanceOf(RuntimeException.class).hasMessage("Author already exist");
+        }).isInstanceOf(RuntimeException.class)
+                .hasMessage("Author already exist");
     }
 
     @Test
+    @DisplayName("tryying to update not existing author, should throw exception")
     public void updateNotExistingShouldThrowException() {
         Assertions.assertThatThrownBy(() -> {
             Author author = new Author();
             author.setBooks(Collections.emptyList());
             service.update(author);
-        }).isInstanceOf(RuntimeException.class).hasMessage("Author not exists");
+        }).isInstanceOf(RuntimeException.class)
+                .hasMessage("Author not exists");
     }
 
     @Test
-    public void getNotExistingShouldThrowException(){
+    @DisplayName("trying to retrieve not existing author, should throw exception")
+    public void getNotExistingShouldThrowException() {
         Assertions.assertThatThrownBy(() -> {
             service.get(121L);
-        }).isInstanceOf(RuntimeException.class).hasMessage("Author with id=121 not found");
+        }).isInstanceOf(RuntimeException.class)
+                .hasMessage("Author with id=121 not found");
     }
 }
